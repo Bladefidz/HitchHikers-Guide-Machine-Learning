@@ -9,8 +9,8 @@ class LReg(object):
 		self.meanX = None
 		self.meanY = None
 		self.productDeviation = None
-		self.standardDeviationX = None
-		self.standardDeviationY = None
+		self.variationX = None
+		self.variationY = None
 		self.standardDeviation = None
 		self.correlation = None
 		self.slope = None
@@ -40,19 +40,19 @@ class LReg(object):
 
 	def __setDeviation(self):
 		self.productDeviation = 0
-		self.standardDeviationX = 0
-		self.standardDeviationY = 0
+		self.variationX = 0
+		self.variationY = 0
 		for i in range(0, self.n):
 			self.productDeviation += ((self.x[i] - self.meanX) * (self.y[i] - self.meanY))
-			self.standardDeviationX += math.pow((self.x[i] - self.meanX), 2)
-			self.standardDeviationY += math.pow((self.y[i] - self.meanY), 2)
-		self.standardDeviation = math.sqrt(self.standardDeviationX * self.standardDeviationY)
+			self.variationX += math.pow((self.x[i] - self.meanX), 2)
+			self.variationY += math.pow((self.y[i] - self.meanY), 2)
+		self.standardDeviation = math.sqrt(self.variationX * self.variationY)
 
 	def __setCorrelation(self):
 		self.correlation = self.productDeviation / self.standardDeviation
 
 	def __setSlope(self):
-		self.slope = self.correlation * (self.standardDeviationY / self.standardDeviationX)
+		self.slope = self.correlation * (self.variationY / self.variationX)
 
 	def __setIntercept(self):
 		self.intercept = self.meanY - (self.slope * self.meanX)
