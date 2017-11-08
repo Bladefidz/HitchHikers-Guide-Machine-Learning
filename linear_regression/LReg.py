@@ -16,9 +16,7 @@ class LReg(object):
 		self.slope = None
 		self.intercept = None
 
-		self.init()
-
-	def init(self):
+	def calculate(self):
 		self.__setMeanX()
 		self.__setMeanY()
 		self.__setDeviation()

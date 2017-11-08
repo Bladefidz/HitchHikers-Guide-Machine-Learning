@@ -32,6 +32,7 @@ with open("gpa_sat.csv") as csvfile:
 
 # Find regression function
 ls = LReg(x, y)
+ls.calculate()
 print("correlation = {:.2f}".format(ls.correlation))
 print("slope = {:.2f}".format(ls.slope))
 print("intercept = {:.2f}".format(ls.intercept))

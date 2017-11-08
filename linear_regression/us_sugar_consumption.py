@@ -24,15 +24,49 @@ with open("us_sugar_consumption.csv") as csvfile:
 	cf = csv.reader(csvfile)
 	for l in cf:
 		if i > 0:
-			x.append(float(l[0]))  # year
+			x.append(int(l[0]))  # year
 			y.append(float(l[1]))  # sugar_consum
 		else:
 			i += 1
 
 
-# Find regression function
-ls = LReg(x, y)
-print("correlation = {:.2f}".format(ls.correlation))
-print("slope = {:.2f}".format(ls.slope))
-print("intercept = {:.2f}".format(ls.intercept))
+# Regression of 1822 - 2005
+# i = 0
+# j = len(x)
+# ls = LReg(x, y)
+
+# Regression of 1822 - 1930
+# i = x.index(1822)
+# j = x.index(1930) + 1
+# ls = LReg(x[i:j], y[i:j])
+
+# Regression of 1931 - 1960
+# i = x.index(1931)
+# j = x.index(1960) + 1
+# ls = LReg(x[i:j], y[i:j])
+
+# Regression of 1961 - 2005
+i = x.index(1961)
+j = x.index(2005) + 1
+ls = LReg(x[i:j], y[i:j])
+
+ls.calculate()
+print("correlation = {:.4f}".format(ls.correlation))
+print("slope = {:.4f}".format(ls.slope))
+print("intercept = {:.4f}".format(ls.intercept))
 f = lambda x: ls.slope * x + ls.intercept
+
+# Plot regression line
+plt.title('Regression from {0} to {1}'.format(x[i], x[j-1]))
+plt.scatter(x, y)
+# x = np.array([min(x), max(x)])
+plt.axis([1800, 3000, 0, 500])
+plt.yticks(range(0, 500, 50))
+x = np.array([min(x), 3000])
+plt.plot(x, f(x), 'k',
+	label="{0:3f} * x + {1:3f}".format(ls.slope, ls.intercept))
+plt.ylabel('Sugar Consumption (lb/year/person)')
+plt.xlabel('Years')
+plt.grid(True)
+plt.legend()
+plt.show()

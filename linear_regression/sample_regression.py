@@ -5,6 +5,7 @@ from LReg import LReg
 
 # Compute Linear Regression of x and y
 ls = LReg(x, y)
+ls.calculate()
 print("r = ",ls.correlation)
 print("b = ",ls.slope)
 print("a = ",ls.intercept)
